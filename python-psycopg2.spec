@@ -5,12 +5,12 @@
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	1.1.7
+Version:	1.1.8
 Release:	1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
-# Source0-md5:	c8a73eba14ac642e6112cb30c2fe4d43
+# Source0-md5:	27a35682b21e587a3bee7dd49ba9c2c3
 Patch0:		%{name}-dumb-ac-fix.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	postgresql-backend-devel
