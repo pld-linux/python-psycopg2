@@ -4,22 +4,20 @@
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	1.1.15
+Version:	1.99.8
 Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
-# Source0-md5:	b7de1df2ba2d0172b5b5f18cc379c3f5
+Source0:	http://initd.org/pub/software/psycopg/ALPHA/%{module}-%{version}.tar.gz
+# Source0-md5:	ea2a1ef59bfbd07555d50ab59377a4a7
 Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
-BuildRequires:	python-mx-DateTime-devel
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
-Requires:	python-mx-DateTime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define zope_subname ZPsycopgDA
@@ -59,47 +57,45 @@ Interfejs bazy danych PostgreSQL do Zope.
 %endif
 
 %build
-%{__autoconf}
-
-%configure \
-	--with-python=%{_bindir}/python \
-	--with-mxdatetime-includes=%{py_incdir}/mx \
-	--with-postgres-includes=%{_includedir}/postgresql/server
-%{__make}
+python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{py_sitedir},%{_datadir}/Zope-%{zope_subname}}
 
-install psycopgmodule.so $RPM_BUILD_ROOT%{py_sitedir}
+python setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
 
-cp -ar %{zope_subname}/* $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
-%py_comp $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
-%py_ocomp $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
-rm -f $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}/*.py
+find $RPM_BUILD_ROOT%{py_libdir} -type f -name "*.py" | xargs rm
+
+#install -d $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
+
+#cp -ar %{zope_subname}/* $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
+#%py_comp $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
+#%py_ocomp $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}
+#rm -f $RPM_BUILD_ROOT%{_datadir}/Zope-%{zope_subname}/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -n Zope-%{zope_subname}
-/usr/sbin/installzopeproduct %{_datadir}/Zope-%{zope_subname} %{zope_subname}
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
-fi
+#%post -n Zope-%{zope_subname}
+#/usr/sbin/installzopeproduct %{_datadir}/Zope-%{zope_subname} %{zope_subname}
+#if [ -f /var/lock/subsys/zope ]; then
+#	/etc/rc.d/init.d/zope restart >&2
+#fi
 
-%postun -n Zope-%{zope_subname}
-if [ "$1" = "0" ]; then
-	/usr/sbin/installzopeproduct -d %{zope_subname} 
-	if [ -f /var/lock/subsys/zope ]; then
-		/etc/rc.d/init.d/zope restart >&2
-	fi
-fi
+#%postun -n Zope-%{zope_subname}
+#if [ "$1" = "0" ]; then
+#	/usr/sbin/installzopeproduct -d %{zope_subname} 
+#	if [ -f /var/lock/subsys/zope ]; then
+#		/etc/rc.d/init.d/zope restart >&2
+#	fi
+#fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CREDITS FAQ NEWS README RELEASE-1.0 SUCCESS TODO doc
-%attr(755,root,root) %{py_sitedir}/*.so
+%doc ChangeLog AUTHORS README doc/HACKING doc/SUCCESS doc/TODO
+%attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%{py_sitedir}/%{module}/*.py[co]
 
-%files -n Zope-%{zope_subname}
-%defattr(644,root,root,755)
-%{_datadir}/Zope-%{zope_subname}
+#%files -n Zope-%{zope_subname}
+#%defattr(644,root,root,755)
+#%{_datadir}/Zope-%{zope_subname}
