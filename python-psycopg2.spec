@@ -8,7 +8,7 @@ Version:	1.1.13
 Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
+Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
 # Source0-md5:	f64f92a004d56659acb7bde462eedf0d
 Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
@@ -41,8 +41,8 @@ psycopg jest, ¿e w jest pe³ni zgodny z standardem DBAPI-2.0 i jest
 Summary:	Zope PostgreSQL database adapter
 Summary(pl):	Interfejs bazy danych PostgreSQL do Zope
 Group:		Development/Languages/Python
+Requires:	%{name} = %{version}-%{release}
 Requires:	Zope
-Requires:	%{name} = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description -n Zope-%{zope_subname}
