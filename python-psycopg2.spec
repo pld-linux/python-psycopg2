@@ -43,7 +43,7 @@ psycopg jest, ¿e w jest pe³ni zgodny z standardem DBAPI-2.0 i jest
 
 %configure \
 	--with-python=%{_bindir}/python \
-	--with-mxdatetime-includes=%{py_sitedir}/mx/DateTime/mxDateTime  \
+	--with-mxdatetime-includes=%{py_incdir}/mx \
 	--with-postgres-includes=%{_includedir}/postgresql/server
 %{__make}
 
