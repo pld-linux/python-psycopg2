@@ -48,7 +48,6 @@ Summary(pl):	Interfejs bazy danych PostgreSQL do Zope
 Group:		Development/Languages/Python
 Requires:	Zope
 Requires:	%{name} = %{version}
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description -n Zope-%{prod_name}
