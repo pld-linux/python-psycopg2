@@ -10,6 +10,7 @@ Release:	1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
+# Source0-md5:	8e12369d92c1a949ff24a685eb82c37d
 Patch0:		%{name}-dumb-ac-fix.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	postgresql-backend-devel
