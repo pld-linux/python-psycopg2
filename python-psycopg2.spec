@@ -17,7 +17,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-mx-DateTime-devel
 Requires:	postgresql-libs
 Requires:	python
-Requires:	python-egenix-mx-base
+Requires:	python-mx-DateTime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
