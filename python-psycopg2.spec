@@ -13,6 +13,7 @@ Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
 # Source0-md5:	2279a6aaddf8a8fbec44f782e5cdaa02
 Patch0:		%{name}-dumb-ac-fix.patch
 URL:		http://www.initd.org/software/psycopg/
+BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	python-devel
 BuildRequires:	python-mx-DateTime-devel
@@ -26,7 +27,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define zope_productsdir   %{zope_dir}/Products
 %define python_compile_opt python -O -c "import compileall; compileall.compile_dir('.')"
 %define python_compile     python -c "import compileall; compileall.compile_dir('.')"
-
 
 %description
 psycopg is a PostgreSQL database adapter for the Python programming
@@ -72,7 +72,6 @@ Interfejs bazy danych PostgreSQL do Zope.
 cd %{prod_name}
 %{python_compile}
 %{python_compile_opt}
-cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
