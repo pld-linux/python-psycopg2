@@ -13,6 +13,7 @@ Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
 # Source0-md5:	8a2b4f81a70cafc0da46b4c560801b37
 Patch0:		%{name}-dumb-ac-fix.patch
 URL:		http://www.initd.org/software/psycopg/
+BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	python-devel
 BuildRequires:	python-mx-DateTime-devel
