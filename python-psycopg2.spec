@@ -8,7 +8,7 @@ Name:		python-%{module}
 Version:	1.0.12
 Release:	0.9
 License:	GPL
-Group:		Applications/Databases
+Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/%{module}/%{module}-%{version}.tar.gz
 Patch0:		%{name}-dumb-ac-fix.patch
 URL:		http://www.initd.org/software/psycopg/
