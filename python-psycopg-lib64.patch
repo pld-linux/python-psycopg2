@@ -1,15 +1,6 @@
 diff -dur psycopg-1.1.11.orig/aclocal.m4 psycopg-1.1.11/aclocal.m4
 --- psycopg-1.1.11.orig/aclocal.m4	2003-12-18 23:08:23.000000000 +0100
 +++ psycopg-1.1.11/aclocal.m4	2004-02-18 11:17:39.919319805 +0100
-@@ -107,7 +107,7 @@
- AC_REQUIRE([PY_PYTHON_EXEC_PREFIX])
- AC_MSG_CHECKING(definitions in Python library makefile)
- AC_CACHE_VAL(py_cv_python_makefile_vars,
--[py_makefile="${PYTHON_EXEC_PREFIX}/lib/python${PYTHON_VERSION}/config/Makefile"
-+[py_makefile="${PYTHON_EXEC_PREFIX}/lib64/python${PYTHON_VERSION}/config/Makefile"
- dnl set defaults for these variables so they work with Python 1.4
- py_cv_python_makefile_LINKCC=''
- py_cv_python_makefile_SGI_ABI=''
 @@ -192,8 +192,8 @@
  AC_DEFUN(PY_CHECK_INSTALL,
  [AC_REQUIRE([PY_PYTHON_VERSION])
@@ -32,30 +23,3 @@ diff -dur psycopg-1.1.11.orig/aclocal.m4 psycopg-1.1.11/aclocal.m4
    p = os.path.normpath(sys.prefix+dir)
    if os.path.isdir(p) and p in sp:
      print dir
-@@ -233,11 +233,11 @@
- AC_CACHE_VAL(py_cv_python_module_dir, dnl
- [py_cv_python_module_dir=`$PYTHON -c "
- import sys, os
--for dir in ('/lib/python${PYTHON_VERSION}/site-packages',
--            '/lib/python${PYTHON_VERSION}/lib-dynload',
--            '/lib/python${PYTHON_VERSION}/sharedmodules',
--            '/lib/site-python',
--            '/lib/python${PYTHON_VERSION}'):
-+for dir in ('/lib64/python${PYTHON_VERSION}/site-packages',
-+            '/lib64/python${PYTHON_VERSION}/lib-dynload',
-+            '/lib64/python${PYTHON_VERSION}/sharedmodules',
-+            '/lib64/site-python',
-+            '/lib64/python${PYTHON_VERSION}'):
-   if os.path.isdir(sys.exec_prefix+dir) and (sys.exec_prefix+dir) in sys.path:
-     print dir
-     break"`])
-@@ -256,7 +256,7 @@
- AC_OUTPUT($2 $3 $1.pre,dnl
- [echo creating $1
- $MAKESETUP -m $1.pre -c - $2],dnl
--[MAKESETUP="${PYTHON_EXEC_PREFIX}/lib/python${PYTHON_VERSION}/config/makesetup"
-+[MAKESETUP="${PYTHON_EXEC_PREFIX}/lib64/python${PYTHON_VERSION}/config/makesetup"
- ])
- ])
- 
-Only in psycopg-1.1.11: aclocal.m4~
