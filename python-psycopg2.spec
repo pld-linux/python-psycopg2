@@ -17,6 +17,7 @@ BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
 BuildRequires:	python-mx-DateTime-devel
+BuildRequires:	rpm-pythonprov
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
 Requires:	python-mx-DateTime
@@ -44,7 +45,6 @@ Summary(pl):	Interfejs bazy danych PostgreSQL do Zope
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	Zope
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description -n Zope-%{zope_subname}
 Zope PostgreSQL database adapter.
