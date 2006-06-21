@@ -5,17 +5,16 @@
 #
 
 %define 	module	psycopg2
-%define		beta	b8
 
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	2.0
-Release:	0.%{beta}.1
+Version:	2.0.2
+Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}%{beta}.tar.gz
-# Source0-md5:	f16d464e184351cac9c11814501083bc
+Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
+# Source0-md5:	6c056b261782c51f53ceccbf86c08749
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	autoconf
@@ -56,7 +55,7 @@ Zope PostgreSQL database adapter.
 Interfejs bazy danych PostgreSQL do Zope.
 
 %prep
-%setup -q -n %{module}-%{version}%{beta}
+%setup -q	-n %{module}-%{version}
 #%if "%{_lib}" == "lib64"
 #%patch0 -p1
 #%endif
