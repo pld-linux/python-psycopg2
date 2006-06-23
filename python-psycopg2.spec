@@ -55,7 +55,7 @@ Zope PostgreSQL database adapter.
 Interfejs bazy danych PostgreSQL do Zope.
 
 %prep
-%setup -q	-n %{module}-%{version}
+%setup -q -n %{module}-%{version}
 #%if "%{_lib}" == "lib64"
 #%patch0 -p1
 #%endif
