@@ -3,6 +3,9 @@
 # - zope adapter
 # - lib64 patch
 #
+# WARNING! Please note, that mx.DateTime is optional. You can use
+# mx.DateTime with your apps, but other see datetime datatype more
+# suitable for date and time as it is standard in Python.
 
 %define 	module	psycopg2
 
@@ -10,7 +13,7 @@ Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.0.5.1
-Release:	4
+Release:	5
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
@@ -21,11 +24,12 @@ BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
-BuildRequires:	python-mx-DateTime-devel
 BuildRequires:	rpm-pythonprov
+# see note at the begining of the spec file
+#BuildRequires:	python-mx-DateTime-devel
+#Requires:	python-mx-DateTime
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
-Requires:	python-mx-DateTime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define zope_subname ZPsycopgDA
