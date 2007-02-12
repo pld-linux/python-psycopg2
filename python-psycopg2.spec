@@ -10,7 +10,7 @@
 %define 	module	psycopg2
 
 Summary:	psycopg is a PostgreSQL database adapter for Python
-Summary(pl):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
+Summary(pl.UTF-8):   psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.0.5.1
 Release:	6
@@ -41,16 +41,16 @@ with the aim of being very small and fast, and stable as a rock. The
 main advantages of psycopg are that it supports the full Python
 DBAPI-2.0 and being thread safe at level 2.
 
-%description -l pl
+%description -l pl.UTF-8
 psycopg jest przeznaczonym dla Pythona interfejsem do bazy danych
-PostgreSQL (tak jak pygresql i popy). Zosta≥ zakodowany od pocz±tku
-z za≥oøeniem øe ma byÊ bardzo ma≥y, szybki i stabilny. G≥Ûwna zalet±
-psycopg jest, øe w jest pe≥ni zgodny z standardem DBAPI-2.0 i jest
+PostgreSQL (tak jak pygresql i popy). Zosta≈Ç zakodowany od poczƒÖtku
+z za≈Ço≈ºeniem ≈ºe ma byƒá bardzo ma≈Çy, szybki i stabilny. G≈Ç√≥wna zaletƒÖ
+psycopg jest, ≈ºe w jest pe≈Çni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
 %package -n Zope-%{zope_subname}
 Summary:	Zope PostgreSQL database adapter
-Summary(pl):	Interfejs bazy danych PostgreSQL do Zope
+Summary(pl.UTF-8):   Interfejs bazy danych PostgreSQL do Zope
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	Zope
@@ -58,7 +58,7 @@ Requires:	Zope
 %description -n Zope-%{zope_subname}
 Zope PostgreSQL database adapter.
 
-%description -n Zope-%{zope_subname} -l pl
+%description -n Zope-%{zope_subname} -l pl.UTF-8
 Interfejs bazy danych PostgreSQL do Zope.
 
 %prep
