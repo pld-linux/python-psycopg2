@@ -26,8 +26,8 @@ BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 # see note at the begining of the spec file
-#BuildRequires:	python-mx-DateTime-devel
-#Requires:	python-mx-DateTime
+BuildRequires:	python-mx-DateTime-devel
+Requires:	python-mx-DateTime
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
