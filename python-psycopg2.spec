@@ -1,4 +1,7 @@
 #
+# Conditional build:
+%bcond_with mx	# build with egenix mx datetime support
+#
 # todo:
 # - zope adapter
 # - lib64 patch
@@ -13,7 +16,7 @@ Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.0.7
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
@@ -25,9 +28,12 @@ BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
-# see note at the begining of the spec file
+%if %{with mx}
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
+%else
+BuildConflicts:	python-mx-DateTime
+%endif
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -107,6 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
+%{py_sitedir}/*.egg-info
 
 #%files -n Zope-%{zope_subname}
 #%defattr(644,root,root,755)
