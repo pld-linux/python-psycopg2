@@ -1,7 +1,4 @@
 #
-# Conditional build:
-%bcond_with mx	# build with egenix mx datetime support
-#
 # todo:
 # - zope adapter
 # - lib64 patch
@@ -10,13 +7,18 @@
 # mx.DateTime with your apps, but other see datetime datatype more
 # suitable for date and time as it is standard in Python.
 
+# Version 2.0.8 builds well with both datetime and mx.DateTime 
+# By default uses datetime
+# If sb really needs version _without_ mx pls do it on your own
+# with without_mx bcond
+
 %define 	module	psycopg2
 
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.0.8
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
@@ -28,12 +30,8 @@ BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
-%if %{with mx}
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
-%else
-BuildConflicts:	python-mx-DateTime
-%endif
 Requires:	postgresql-libs
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -113,7 +111,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
+%if "%{py_ver}" > "2.4"
 %{py_sitedir}/*.egg-info
+%endif
 
 #%files -n Zope-%{zope_subname}
 #%defattr(644,root,root,755)
