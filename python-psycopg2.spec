@@ -27,8 +27,8 @@ BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
 %else
 # allow mx.DateTime to be optional
-# don't suggest - it is rare tu use it as python provides its own datetime
-# implementation, now
+# don't use Suggest - it is rare to use mx.DateTime; python provides its
+# own datetime implementation, now
 BuildConflicts:   python-mx-DateTime
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
