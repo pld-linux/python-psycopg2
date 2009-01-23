@@ -26,9 +26,12 @@ Requires:	postgresql-libs
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
 %else
-# allow mx.DateTime to be optional
-# don't use Suggest - it is rare to use mx.DateTime; python provides its
-# own datetime implementation, now
+# if somebody really needs mx.DateTime, then one can request mx.Datetime
+# usage on runtime;
+# it is pointless to use 'Requires' or 'Suggest' field because
+# - python provides its own datetime implementation
+# - one can request it on runtime (as said above)
+# - usage of mx.DateTime type is application specific
 BuildConflicts:   python-mx-DateTime
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
