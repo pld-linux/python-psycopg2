@@ -8,7 +8,7 @@ Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.0.11
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/pub/software/psycopg/%{module}-%{version}.tar.gz
@@ -22,18 +22,20 @@ BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 Requires:	postgresql-libs
 Requires:	python-modules
-%if "%{pld_release}" == "ac"
+# %if "%{pld_release}" == "ac"
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
-%else
+# %else
 # if somebody really needs mx.DateTime, then one can request mx.Datetime
 # usage on runtime;
 # it is pointless to use 'Requires' or 'Suggest' field because
 # - python provides its own datetime implementation
 # - one can request it on runtime (as said above)
 # - usage of mx.DateTime type is application specific
-BuildConflicts:   python-mx-DateTime
-%endif
+# Sure, but make mx-DateTime conditional build work
+# # BuildConflicts:   python-mx-DateTime
+# %endif
+Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
