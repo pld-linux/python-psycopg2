@@ -2,25 +2,34 @@
 # todo:
 # - lib64 patch
 
-%define 	module	psycopg2
+# Conditional build:
+%bcond_without  python2 # CPython 2.x module
+%bcond_without  python3 # CPython 3.x module
 
+%define 	module	psycopg2
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	2.4.4
+Version:	2.5
 Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-4/%{module}-%{version}.tar.gz
-# Source0-md5:	331255d2d44018bcef2ea192aabc1d6a
+Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-5/%{module}-%{version}.tar.gz
+# Source0-md5:	facd82faa067e99b80146a0ee2f842f6
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
-BuildRequires:	python-devel
+%if %{with python2}
+BuildRequires:	python-devel >= 2.5
+%endif
+%if %{with python3}
+BuildRequires:	python3-devel >= 2.5
+%endif
 BuildRequires:	rpm-pythonprov
 Requires:	postgresql-libs
+%if %{with python2}
 Requires:	python-modules
 %if "%{pld_release}" == "ac"
 BuildRequires:	python-mx-DateTime-devel
@@ -36,6 +45,11 @@ Requires:	python-mx-DateTime
 BuildConflicts:   python-egenix-mx-base
 %endif
 Requires:	python-pytz
+%endif
+%if %{with python3}
+Requires:	python3-modules
+Requires:	python3-pytz
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,6 +66,26 @@ z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
+%package -n python3-%{module}
+Summary:	psycopg is a PostgreSQL database adapter for Python
+Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
+Group:		Libraries/Python
+
+%description -n python3-%{module}
+psycopg is a PostgreSQL database adapter for the Python programming
+language (just like pygresql and popy.) It was written from scratch
+with the aim of being very small and fast, and stable as a rock. The
+main advantages of psycopg are that it supports the full Python
+DBAPI-2.0 and being thread safe at level 2.
+
+%description -n python3-%{module} -l pl.UTF-8
+psycopg jest przeznaczonym dla Pythona interfejsem do bazy danych
+PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku
+z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
+psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
+'thread safe' na poziomie 2.
+
+
 %prep
 %setup -q -n %{module}-%{version}
 #%if "%{_lib}" == "lib64"
@@ -59,25 +93,51 @@ psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 #%endif
 
 %build
-python setup.py build
+%if %{with python2}
+%{__python} setup.py build
+%endif
+%if %{with python3}
+%{__python3} setup.py build
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-python setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
+%if %{with python2}
+%{__python} setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
 
 # find $RPM_BUILD_ROOT%{py_libdir} -type f -name "*.py" | xargs rm
 %py_postclean
+%endif
+%if %{with python3}
+%{__python3} setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog AUTHORS README doc/HACKING doc/SUCCESS
+%doc NEWS AUTHORS README doc/HACKING doc/SUCCESS
 %dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
 %if "%{pld_release}" != "ac"
 %{py_sitedir}/*.egg-info
+%endif
+%{py_sitedir}/%{module}/tests
+%endif
+
+%if %{with python3}
+%files -n python3-%{module}
+%defattr(644,root,root,755)
+%doc NEWS AUTHORS README doc/HACKING doc/SUCCESS
+%dir %{py3_sitedir}/%{module}
+%dir %{py3_sitedir}/%{module}/__pycache__
+%attr(755,root,root) %{py3_sitedir}/%{module}/*.so
+%{py3_sitedir}/%{module}/*.py
+%{py3_sitedir}/%{module}/__pycache__/*.py*
+%{py3_sitedir}/*.egg-info
+%{py3_sitedir}/%{module}/tests
 %endif
