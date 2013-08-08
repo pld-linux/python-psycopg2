@@ -1,5 +1,4 @@
-#
-# todo:
+# TODO:
 # - lib64 patch
 
 # Conditional build:
@@ -10,12 +9,12 @@
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	2.5
+Version:	2.5.1
 Release:	1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-5/%{module}-%{version}.tar.gz
-# Source0-md5:	facd82faa067e99b80146a0ee2f842f6
+# Source0-md5:	1b433f83d50d1bc61e09026e906d84c7
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	autoconf
@@ -46,10 +45,6 @@ BuildConflicts:   python-egenix-mx-base
 %endif
 Requires:	python-pytz
 %endif
-%if %{with python3}
-Requires:	python3-modules
-Requires:	python3-pytz
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -66,10 +61,16 @@ z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
+
+%if %{with python3}
 %package -n python3-%{module}
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Group:		Libraries/Python
+
+Requires:	python3-modules
+Requires:	python3-pytz
+
 
 %description -n python3-%{module}
 psycopg is a PostgreSQL database adapter for the Python programming
@@ -85,6 +86,7 @@ z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
+%endif
 
 %prep
 %setup -q -n %{module}-%{version}
