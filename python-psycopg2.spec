@@ -61,16 +61,14 @@ z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
-
-%if %{with python3}
 %package -n python3-%{module}
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Group:		Libraries/Python
-
+%if %{with python3}
 Requires:	python3-modules
 Requires:	python3-pytz
-
+%endif
 
 %description -n python3-%{module}
 psycopg is a PostgreSQL database adapter for the Python programming
@@ -85,8 +83,6 @@ PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku
 z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
-
-%endif
 
 %prep
 %setup -q -n %{module}-%{version}
