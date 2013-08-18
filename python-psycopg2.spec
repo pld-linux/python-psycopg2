@@ -20,16 +20,12 @@ URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
-%if %{with python2}
-BuildRequires:	python-devel >= 2.5
-%endif
-%if %{with python3}
-BuildRequires:	python3-devel >= 2.5
-%endif
+%{?with_python2:BuildRequires:	python-devel >= 2.5}
+%{?with_python3:BuildRequires:	python3-devel}
 BuildRequires:	rpm-pythonprov
 Requires:	postgresql-libs
-%if %{with python2}
 Requires:	python-modules
+Requires:	python-pytz
 %if "%{pld_release}" == "ac"
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
@@ -41,9 +37,7 @@ Requires:	python-mx-DateTime
 # - one can request it on runtime (as said above)
 # - usage of mx.DateTime type is application specific
 # Sure, but make mx-DateTime conditional build work
-BuildConflicts:   python-egenix-mx-base
-%endif
-Requires:	python-pytz
+BuildConflicts:	python-egenix-mx-base
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -56,8 +50,8 @@ DBAPI-2.0 and being thread safe at level 2.
 
 %description -l pl.UTF-8
 psycopg jest przeznaczonym dla Pythona interfejsem do bazy danych
-PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku
-z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
+PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku z
+założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
@@ -65,10 +59,8 @@ psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Group:		Libraries/Python
-%if %{with python3}
 Requires:	python3-modules
 Requires:	python3-pytz
-%endif
 
 %description -n python3-%{module}
 psycopg is a PostgreSQL database adapter for the Python programming
@@ -79,8 +71,8 @@ DBAPI-2.0 and being thread safe at level 2.
 
 %description -n python3-%{module} -l pl.UTF-8
 psycopg jest przeznaczonym dla Pythona interfejsem do bazy danych
-PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku
-z założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
+PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku z
+założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
@@ -100,15 +92,17 @@ psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %if %{with python2}
-%{__python} setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
+%{__python} setup.py install \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 
-# find $RPM_BUILD_ROOT%{py_libdir} -type f -name "*.py" | xargs rm
 %py_postclean
 %endif
 %if %{with python3}
-%{__python3} setup.py install --optimize=2 --root=$RPM_BUILD_ROOT
+%{__python3} setup.py install \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 %endif
 
 %clean
