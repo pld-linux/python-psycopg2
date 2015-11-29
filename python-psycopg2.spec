@@ -17,6 +17,7 @@ Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-5/%{module}-%{version}.tar.
 # Source0-md5:	1b433f83d50d1bc61e09026e906d84c7
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
