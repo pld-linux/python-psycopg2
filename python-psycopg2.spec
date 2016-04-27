@@ -9,12 +9,12 @@
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	2.5.1
-Release:	6
+Version:	2.6.1
+Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-5/%{module}-%{version}.tar.gz
-# Source0-md5:	1b433f83d50d1bc61e09026e906d84c7
+Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-6/%{module}-%{version}.tar.gz
+# Source0-md5:	842b44f8c95517ed5b792081a2370da1
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	rpmbuild(macros) >= 1.710
@@ -108,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc NEWS AUTHORS README doc/HACKING doc/SUCCESS
+%doc NEWS AUTHORS doc/SUCCESS
 %dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc NEWS AUTHORS README doc/HACKING doc/SUCCESS
+%doc NEWS AUTHORS doc/SUCCESS
 %dir %{py3_sitedir}/%{module}
 %dir %{py3_sitedir}/%{module}/__pycache__
 %attr(755,root,root) %{py3_sitedir}/%{module}/*.so
