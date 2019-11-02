@@ -5,16 +5,16 @@
 %bcond_without  python2 # CPython 2.x module
 %bcond_without  python3 # CPython 3.x module
 
-%define 	module	psycopg2
+%define		module	psycopg2
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
-Version:	2.7.5
-Release:	2
+Version:	2.8.4
+Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-7/%{module}-%{version}.tar.gz
-# Source0-md5:	9e7d6f695fc7f8d1c42a7905449246c9
+Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-8/%{module}-%{version}.tar.gz
+# Source0-md5:	dbb5a67dd57cfa905de37ab9678a92f6
 #Patch0:		%{name}-lib64.patch
 URL:		http://www.initd.org/software/psycopg/
 BuildRequires:	rpmbuild(macros) >= 1.710
@@ -115,7 +115,6 @@ rm -rf $RPM_BUILD_ROOT
 %if "%{pld_release}" != "ac"
 %{py_sitedir}/*.egg-info
 %endif
-%{py_sitedir}/%{module}/tests
 %endif
 
 %if %{with python3}
@@ -128,5 +127,4 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__/*.py*
 %{py3_sitedir}/*.egg-info
-%{py3_sitedir}/%{module}/tests
 %endif
