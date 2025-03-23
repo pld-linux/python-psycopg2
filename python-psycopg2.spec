@@ -2,15 +2,13 @@
 # - lib64 patch
 
 # Conditional build:
-%bcond_without  python2 # CPython 2.x module
-%bcond_without  python3 # CPython 3.x module
 
 %define		module	psycopg2
 Summary:	psycopg is a PostgreSQL database adapter for Python
 Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
 Name:		python-%{module}
 Version:	2.8.6
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries/Python
 Source0:	https://pypi.debian.net/%{module}/%{module}-%{version}.tar.gz
@@ -21,12 +19,8 @@ BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	autoconf
 BuildRequires:	postgresql-backend-devel
 BuildRequires:	postgresql-devel
-%{?with_python2:BuildRequires:	python-devel >= 2.5}
-%{?with_python3:BuildRequires:	python3-devel}
+BuildRequires:	python-devel >= 2.5
 BuildRequires:	rpm-pythonprov
-Requires:	postgresql-libs
-Requires:	python-modules
-Requires:	python-pytz
 %if "%{pld_release}" == "ac"
 BuildRequires:	python-mx-DateTime-devel
 Requires:	python-mx-DateTime
@@ -40,6 +34,9 @@ Requires:	python-mx-DateTime
 # Sure, but make mx-DateTime conditional build work
 BuildConflicts:	python-egenix-mx-base
 %endif
+Requires:	postgresql-libs
+Requires:	python-modules
+Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,27 +53,6 @@ założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
 psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 'thread safe' na poziomie 2.
 
-%package -n python3-%{module}
-Summary:	psycopg is a PostgreSQL database adapter for Python
-Summary(pl.UTF-8):	psycopg jest przeznaczonym dla Pythona interfejsem do bazy PostgreSQL
-Group:		Libraries/Python
-Requires:	python3-modules
-Requires:	python3-pytz
-
-%description -n python3-%{module}
-psycopg is a PostgreSQL database adapter for the Python programming
-language (just like pygresql and popy.) It was written from scratch
-with the aim of being very small and fast, and stable as a rock. The
-main advantages of psycopg are that it supports the full Python
-DBAPI-2.0 and being thread safe at level 2.
-
-%description -n python3-%{module} -l pl.UTF-8
-psycopg jest przeznaczonym dla Pythona interfejsem do bazy danych
-PostgreSQL (tak jak pygresql i popy). Został zakodowany od początku z
-założeniem że ma być bardzo mały, szybki i stabilny. Główna zaletą
-psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
-'thread safe' na poziomie 2.
-
 %prep
 %setup -q -n %{module}-%{version}
 #%if "%{_lib}" == "lib64"
@@ -84,28 +60,17 @@ psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 #%endif
 
 %build
-%if %{with python2}
 %py_build
-%endif
-%if %{with python3}
-%py3_build
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if %{with python2}
 %py_install
 
 %py_postclean
-%endif
-%if %{with python3}
-%py3_install
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if %{with python2}
 %files
 %defattr(644,root,root,755)
 %doc NEWS AUTHORS doc/SUCCESS
@@ -114,17 +79,4 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/*.py[co]
 %if "%{pld_release}" != "ac"
 %{py_sitedir}/*.egg-info
-%endif
-%endif
-
-%if %{with python3}
-%files -n python3-%{module}
-%defattr(644,root,root,755)
-%doc NEWS AUTHORS doc/SUCCESS
-%dir %{py3_sitedir}/%{module}
-%dir %{py3_sitedir}/%{module}/__pycache__
-%attr(755,root,root) %{py3_sitedir}/%{module}/*.so
-%{py3_sitedir}/%{module}/*.py
-%{py3_sitedir}/%{module}/__pycache__/*.py*
-%{py3_sitedir}/*.egg-info
 %endif
