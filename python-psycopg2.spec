@@ -56,7 +56,7 @@ psycopg jest, że w jest pełni zgodny z standardem DBAPI-2.0 i jest
 %prep
 %setup -q -n %{module}-%{version}
 #%if "%{_lib}" == "lib64"
-#%patch0 -p1
+#%%patch0 -p1
 #%endif
 
 %build
